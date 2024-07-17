@@ -5,16 +5,16 @@ import employeeRoutes from "./src/routes/employeeRoutes.js";
 import authRoutes from "./src/routes/authRoutes.js";
 import cors from "cors";
 import dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
-import path from 'path';
+// import { fileURLToPath } from 'url';
+// import path from 'path';
 
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 const { Client } = pg
 
