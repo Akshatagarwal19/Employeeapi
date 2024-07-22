@@ -1,20 +1,22 @@
-# Employeeapi
 Employee Management System API Documentation
-Base URL: httpemployeeapi-production.up.railway.app
+Base URL: http://employeeapi-production.up.railway.app
+
 Authentication Endpoints
 Register a New Employee
-•	Endpoint: /auth/register
-•	Method: POST
-•	Request Body:
+Endpoint: /auth/register
+Method: POST
+Request Body:
 json
+
 {
   "name": "John Doe",
   "email": "john.doe@example.com",
   "password": "password123",
   "position": "Manager"
 }
-•	Response:
+Response:
 json
+
 {
   "message": "Employee registered successfully",
   "employee": {
@@ -26,33 +28,37 @@ json
   }
 }
 Login
-•	Endpoint: /auth/login
-•	Method: POST
-•	Request Body:
+Endpoint: /auth/login
+Method: POST
+Request Body:
 json
+
 {
   "email": "john.doe@example.com",
   "password": "password123"
 }
-•	Response:
+Response:
 json
+
 {
-  "message": "Login successful",
+  "message": "Login successful"
 }
 Logout
-•	Endpoint: /auth/logout
-•	Method: POST
-•	Response:
+Endpoint: /auth/logout
+Method: POST
+Response:
 json
+
 {
   "message": "Logout successful"
 }
 Employee Endpoints
 Get All Employees
-•	Endpoint: /employees
-•	Method: GET
-•	Response:
+Endpoint: /employees
+Method: GET
+Response:
 json
+
 [
   {
     "id": 1,
@@ -68,10 +74,11 @@ json
   }
 ]
 Get Employee by ID
-•	Endpoint: /employees/:id
-•	Method: GET
-•	Response:
+Endpoint: /employees/:id
+Method: GET
+Response:
 json
+
 {
   "id": 1,
   "name": "John Doe",
@@ -79,18 +86,20 @@ json
   "position": "Manager"
 }
 Create a New Employee
-•	Endpoint: /employees
-•	Method: POST
-•	Request Body:
+Endpoint: /employees
+Method: POST
+Request Body:
 json
+
 {
   "name": "Jane Doe",
   "email": "jane.doe@example.com",
   "password": "password123",
   "position": "Developer"
 }
-•	Response:
+Response:
 json
+
 {
   "id": 2,
   "name": "Jane Doe",
@@ -98,16 +107,17 @@ json
   "position": "Developer"
 }
 Update an Employee
-•	Endpoint: /employees/:id
-•	Method: PUT
-•	Request Body:
+Endpoint: /employees/:id
+Method: PUT
+Request Body:
 json
+
 {
   "name": "Jane Doe Updated",
   "email": "jane.doe@example.com",
   "position": "Senior Developer"
 }
-•	Response:
+Response:
 json
 {
   "id": 2,
@@ -116,11 +126,19 @@ json
   "position": "Senior Developer"
 }
 Delete an Employee
-•	Endpoint: /employees/:id
-•	Method: DELETE
-•	Response:
+Endpoint: /employees/:id
+Method: DELETE
+Response:
 json
+
 {
   "message": "Employee deleted"
 }
+
+
+
+
+
+
+
 
