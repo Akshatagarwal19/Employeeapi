@@ -52,17 +52,17 @@ class Employee {
     static async update(id, {name, email, password, position}) {
         let updatedpassword = password;
         if (password) {
-            const employee = new Employee(id, name, email, password, position);
+            const employee = new Employee(id, name, email, password, position,null);
             await employee.setpassword(password);
             updatedpassword = employee.password;
         }
 
-        const result = await db.query('UPDATE employees SET name = $1, email = $2, password = $3, position = $4, updated_at = CURRENT_TIMESTAMP WHERE id = $5 RETURNING *',
+        const result = await db.query('UPDATE employees SET name = $1, email = $2, password = $3, position = $4, updated_at = NOW() WHERE id = $5 RETURNING *',
             [name, email, updatedpassword, position, id]
         );
 
         const updatedemployee = result.rows[0];
-        return new Employee(updatedemployee.id, updatedemployee.name, updatedemployee.email, updatedemployee.password, updatedemployee.position);
+        return new Employee(updatedemployee.id, updatedemployee.name, updatedemployee.email, updatedemployee.password, updatedemployee.position, updatedemployee.updated_at);
     }
 
     static async delete(id){
