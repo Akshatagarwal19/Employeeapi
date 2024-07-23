@@ -8,7 +8,7 @@ class Employee {
         this.email = email;
         this.password = password;
         this.position = position;
-        this.updated_at = updatd_at;
+        this.updatd_at = updatd_at;
     }
 
     async setPassword(password) {
@@ -24,7 +24,7 @@ class Employee {
         const result = await db.query('SELECT * FROM employees WHERE email = $1', [email]);
         const employee = result.rows[0];
         if (employee) {
-            return new Employee(employee.id, employee.name, employee.email, employee.password, employee.position, employee.updated_at);
+            return new Employee(employee.id, employee.name, employee.email, employee.password, employee.position, employee.updatd_at);
         }
         return null;
     }
@@ -39,14 +39,14 @@ class Employee {
         );
 
         const newEmployee = result.rows[0];
-        return new Employee(newEmployee.id, newEmployee.name, newEmployee.email, newEmployee.password, newEmployee.position, newEmployee.updated_at);
+        return new Employee(newEmployee.id, newEmployee.name, newEmployee.email, newEmployee.password, newEmployee.position, newEmployee.updatd_at);
     }
 
     static async findById(id) {
         const result = await db.query('SELECT * FROM employees WHERE id = $1', [id]);
         const employee = result.rows[0];
         if (employee) {
-            return new Employee(employee.id, employee.name, employee.email, employee.password, employee.position, employee.updated_at);
+            return new Employee(employee.id, employee.name, employee.email, employee.password, employee.position, employee.updatd_at);
         }
         return null;
     }
@@ -60,12 +60,12 @@ class Employee {
         }
 
         const result = await db.query(
-            'UPDATE employees SET name = $1, email = $2, password = $3, position = $4, updated_at = NOW() WHERE id = $5 RETURNING *',
+            'UPDATE employees SET name = $1, email = $2, password = $3, position = $4, updatd_at = NOW() WHERE id = $5 RETURNING *',
             [name, email, updatedPassword, position, id]
         );
 
         const updatedEmployee = result.rows[0];
-        return new Employee(updatedEmployee.id, updatedEmployee.name, updatedEmployee.email, updatedEmployee.password, updatedEmployee.position, updatedEmployee.updated_at);
+        return new Employee(updatedEmployee.id, updatedEmployee.name, updatedEmployee.email, updatedEmployee.password, updatedEmployee.position, updatedEmployee.updatd_at);
     }
 
     static async delete(id) {
@@ -74,7 +74,7 @@ class Employee {
 
     static async findAll() {
         const result = await db.query('SELECT * FROM employees');
-        return result.rows.map(employee => new Employee(employee.id, employee.name, employee.email, employee.password, employee.position, employee.updated_at));
+        return result.rows.map(employee => new Employee(employee.id, employee.name, employee.email, employee.password, employee.position, employee.updatd_at));
     }
 }
 
