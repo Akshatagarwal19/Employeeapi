@@ -3,7 +3,7 @@ import Employee from "../models/employee.js";
 class EmployeeController {
     async getEmployees(req, res) {
         try {
-            const employees = await Employee.findall();
+            const employees = await Employee.findAll();
             res.json(employees);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -12,7 +12,7 @@ class EmployeeController {
 
     async getEmployeeById(req, res) {
         try {
-            const employee = await Employee.findbyid(req.params.id);
+            const employee = await Employee.findById(req.params.id);
             if (!employee) return res.status(404).json({ message: 'Employee not found' });
             res.json(employee);
         } catch (error) {
@@ -23,7 +23,7 @@ class EmployeeController {
     async createEmployee(req, res) {
         try {
             const { name, email, password, position } = req.body;
-            const existingEmployee = await Employee.findbyemail(email);
+            const existingEmployee = await Employee.findByEmail(email);
             if (existingEmployee) {
                 return res.status(400).json({ message: 'Email already in use' });
             }

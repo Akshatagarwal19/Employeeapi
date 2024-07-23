@@ -1,4 +1,3 @@
-import bcrypt from 'bcryptjs';
 import Employee from "../models/employee.js";
 
 class AuthController {
@@ -19,8 +18,8 @@ class AuthController {
     async login(req, res) {
         try {
             const { email, password } = req.body;
-            const employee = await Employee.findbyemail(email);
-            if (!employee || !(await employee.verifypassword(password))) {
+            const employee = await Employee.findByEmail(email);
+            if (!employee || !(await employee.verifyPassword(password))) {
                 return res.status(400).json({ message: 'Invalid email or password' });
             }
             res.json({ message: 'Login successful', employee });
