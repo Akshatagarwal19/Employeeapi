@@ -2,13 +2,13 @@ import bcrypt from 'bcryptjs';
 import db from '../../server.js';
 
 class Employee {
-    constructor(id, name, email, password, position, updated_at) {
+    constructor(id, name, email, password, position, updatd_at) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.position = position;
-        this.updated_at = updated_at;
+        this.updated_at = updatd_at;
     }
 
     async setPassword(password) {
