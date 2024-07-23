@@ -5,7 +5,7 @@ class AuthController {
     async register(req, res) {
         try {
             const { name, email, password, position } = req.body;
-            const existingEmployee = await Employee.findbyemail(email);
+            const existingEmployee = await Employee.findByEmail(email);
             if (existingEmployee) {
                 return res.status(400).json({ message: 'Email already in use' });
             }
