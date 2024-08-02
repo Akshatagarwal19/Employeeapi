@@ -1,15 +1,44 @@
 import Employee from "../models/employee.js";
+import { successresponse, errorResponse } from "../middlewares/responseformatter.js";
+
 
 class AuthController {
     async register(req, res) {
         try {
             const { name, email, password, position } = req.body;
+
+            if (!name || !email || !password || !position) {
+                console.log('Validation failed: null string fields');
+                return res.status(400).json({ message: 'All fields (name, email, password, position) are required' });
+            }
+
+            if (name.trim() === '' || email.trim() === '' || password.trim() === '' || position.trim() === '') {
+                console.log('Validation failed: empty string fields');
+                return res.status(400).json({ message: 'Fields cannot be empty strings' });
+            }
+
+            if (!Employee.validateName(name)) {
+                return errorResponse(res, 'Invalid name');
+            }
+
+            if (!Employee.validateEmail(email)) {
+                return errorResponse(res, 'Invalid Email format');
+            }
+
+            if (!Employee.validatePassword(password)) {
+                return errorResponse(res, 'Password must be at least 8 characters long ');
+            }
+
+            if (!Employee.validatePosition(position)) {
+                return errorResponse(res, 'Invalid position');
+            }
+
             const existingEmployee = await Employee.findByEmail(email);
             if (existingEmployee) {
-                return res.status(400).json({ message: 'Email already in use' });
+                return errorResponse(res, 'Email already in use');
             }
             const newEmployee = await Employee.create({ name, email, password, position });
-            res.status(201).json({ message: 'Employee registered successfully', employee: newEmployee });
+            successresponse(res, 'Employee registered successfully', {employee: Employee.withoutPassword(newEmployee)});
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -20,9 +49,9 @@ class AuthController {
             const { email, password } = req.body;
             const employee = await Employee.findByEmail(email);
             if (!employee || !(await employee.verifyPassword(password))) {
-                return res.status(400).json({ message: 'Invalid email or password' });
+                return errorResponse(res, 'Invalid  Email or Password');
             }
-            res.json({ message: 'Login successful', employee });
+            successresponse(res, 'Login Successfull', {employee: Employee.withoutPassword(employee)})
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -30,7 +59,7 @@ class AuthController {
 
     async logout(req, res) {
         try {
-            res.json({ message: 'Logout successful' });
+            successresponse(res, 'Logout Successfull')
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -38,4 +67,3 @@ class AuthController {
 }
 
 export default new AuthController();
-
